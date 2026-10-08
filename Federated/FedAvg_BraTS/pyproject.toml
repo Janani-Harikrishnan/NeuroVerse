@@ -1,0 +1,81 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[project]
+name = "fedavg-brats"
+version = "1.0.0"
+description = "Federated BraTS2021 3D U-Net segmentation with Flower"
+license = {file = "LICENSE"}
+
+dependencies = [
+    "flwr[simulation]>=1.30.0",
+    "torch==2.10.0",
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "scipy",
+    "scikit-learn",
+]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+
+[tool.flwr.app]
+publisher = "neuroverse"
+fab-format-version = 1
+flwr-version-target = "1.30.0"
+
+
+[tool.flwr.app.components]
+serverapp = "pytorchexample.server_app:app"
+clientapp = "pytorchexample.client_app:app"
+
+
+[tool.flwr.app.config]
+
+num-server-rounds = 10
+
+fraction-train = 1.0
+
+fraction-evaluate = 1.0
+
+local-epochs = 10
+
+learning-rate = 0.0001
+
+patches-per-epoch = 100
+
+evaluate-clients-each-round = true
+
+
+
+#######################################################################
+# CONFIGURATION MIGRATION NOTICE:
+#
+# What was previously called "federation config" for SuperLink
+# connections in pyproject.toml has been renamed and moved.
+#
+# These settings are now **SuperLink connection configuration**
+# and are defined in the Flower configuration file.
+#
+# The entries below are commented out intentionally and are kept
+# only as a migration reference.
+#
+# Docs: https://flower.ai/docs/framework/ref-flower-configuration.html
+#######################################################################
+
+# [tool.flwr.federations]
+# default = "local-simulation"
+
+
+# [tool.flwr.federations.local-simulation]
+
+# options.num-supernodes = 3
+
+# options.backend.client-resources.num-cpus = 2
+
+# options.backend.client-resources.num-gpus = 1.0

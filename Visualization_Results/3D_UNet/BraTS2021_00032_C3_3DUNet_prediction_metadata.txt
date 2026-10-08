@@ -1,0 +1,32 @@
+LOCAL 3D U-NET VISUALIZATION
+========================================
+
+Patient: BraTS2021_00032
+Client: C3
+Model: 3D U-Net
+Checkpoint: /home/janani/Neuroverse/Visualization_Models/3D_UNet/C3_best_model.pth
+Patient file: /home/janani/Neuroverse/IID_Clients/GlobalTest/test/BraTS2021_00032.npz
+Device: cuda
+Image shape: (4, 147, 193, 145)
+Ground truth shape: (147, 193, 145)
+Prediction shape: (147, 193, 145)
+Visualization slice: 84
+Ground truth labels: [0, 1, 2, 3]
+Prediction labels: [0, 1, 2, 3]
+
+Architecture:
+Input channels: 4
+Output classes: 4
+Base channels: 16
+Encoder channels: 16, 32, 64
+Bottleneck channels: 128
+Decoder channels: 64, 32, 16
+DoubleConv: Conv3d + InstanceNorm3d + ReLU x 2
+Conv3d bias in DoubleConv: False
+Final layer: 1x1x1 Conv3d
+
+Segmentation visualization:
+Label 0: Background
+Label 1: NCR/NET - Yellow
+Label 2: Edema - Green
+Label 3: Enhancing Tumor - Red
